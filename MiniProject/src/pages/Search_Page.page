@@ -1,0 +1,81 @@
+<!--  /******************************************************************************
+Version:1.0
+Date:16/07/2014
+Author:Hetal Tanna
+Comment:Create a VisualForce Page which will search a query and shows the history of records.
+*******************************************************************************/-->
+
+<apex:page tabStyle="Account" controller="Search"> 
+<apex:sectionHeader subtitle="GOOGLE SEARCH" description="Browse And History Display"/>
+<apex:pageBlock >
+
+<!-- Create Tab panel -->
+    <apex:tabPanel switchType="client" selectedTab="search" id="tab1">
+    <apex:tab label="SEARCH" name="search" id="tab2">
+    <apex:form >
+    <apex:actionFunction name="rerenderStates" rerender="outputpage" >
+    </apex:actionFunction>
+
+<!--Image display-->
+    <p align="center"> <img src="{!$Resource.Google_Image}">  </img> <br/> </p>
+
+<!--Search Text Box -->
+    <p align="center">  <apex:inputText value="{!query}" id="querysearch" size="80"/> </p>
+    <p align="center"> <apex:Commandbutton action="{!searchq}" value="Search" onclick="rerenderStates(this.value)" /> </p>
+    <apex:pageMessages id="showmsg"></apex:pageMessages>
+    </apex:form>
+    <br/><br/><br/>
+    <apex:form >
+
+   <apex:repeat value="{!w}" var="wq" id="outputpage" >
+
+   <b><font color="black" size = "3"><apex:outputtext value="{!wq.Title}"></apex:outputtext></font><br/>
+   </b><apex:outputlink value="http://{!wq.link}"><font size ="2"><apex:outputtext value="{!wq.link}"></apex:outputtext></font><br/></apex:outputlink>
+   <font size = "1"><apex:outputtext value="{!wq.Descr}"></apex:outputtext></font><br/>
+
+   </apex:repeat>
+
+</apex:form>
+
+
+<!-- SHOW THE HISTORIES AND LINK -->
+</apex:tab>
+    <apex:tab label="HISTORY" name="HISTORIES" id="TabHistory">
+    <apex:form >
+    <apex:actionFunction name="rerenderStates1" rerender="output" />
+<!-- <apex:commandbutton value="Get History" action="{!gethistory}" /> -->
+    <br/>
+    <apex:repeat value="{!q}" var="wq" id="history" >
+    <br/>
+<!--   <apex:outputtext value="{!wq.Query_Result__c}"></apex:outputtext> --> 
+    <br/>
+    <apex:outputtext value="  "/>
+<!-- History Link -->  
+<!-- <apex:outputlink value="{!wq.Body__c}" ><apex:outputtext value="{!wq.Body__c}"></apex:outputtext></apex:outputlink> -->
+    <br/>
+ <apex:commandLink action="{!processLinkClick}" onclick="rerenderStates1(this.value)" >
+     <apex:outputtext value="{!wq.Body__c}" ></apex:outputtext>     
+      <apex:param name="Name" value="{!wq.Body__c}"  assignTo="{!history}"/>
+          </apex:commandLink>
+
+
+ </apex:repeat>
+ <br/>
+   <apex:repeat value="{!que}" var="qd" id="output" >
+
+   <b><font color="black" size = "3"><apex:outputtext value="{!qd.Title}"></apex:outputtext></font><br/>
+   </b><apex:outputlink value="http://{!qd.link}"><font size ="2"><apex:outputtext value="{!qd.link}"></apex:outputtext></font><br/></apex:outputlink>
+   <font size = "1"><apex:outputtext value="{!qd.Descr}"></apex:outputtext></font><br/>
+
+   </apex:repeat> 
+ </apex:form>
+ 
+ 
+ 
+</apex:tab>
+
+</apex:tabPanel>
+
+</apex:pageBlock>
+
+</apex:page>

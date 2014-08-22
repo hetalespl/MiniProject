@@ -2,7 +2,7 @@
 Version:1.0
 Date:11/07/2014
 Author:Hetal Tanna
-Comment:Create a class to provide an inbound service for the query fired by user 
+Comment:Create a class to provide an inbound service for the query fired by user 123
 *******************************************************************************/
 //Created a Messaging.InboundEmailHandler interface which allows you to process the email contents of required user query
 
